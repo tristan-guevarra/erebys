@@ -17,21 +17,22 @@ import {
 import type { RevenueByDay, WhatIfResult, CohortRow, AthleteLTVBucket } from "@/types";
 
 const CHART_COLORS = {
-  blue: "#8b5cf6",
+  blue: "#8462c2",
   cyan: "#06b6d4",
   emerald: "#10b981",
   amber: "#f59e0b",
   rose: "#f43f5e",
-  purple: "#a78bfa",
+  purple: "#b196f0",
 };
 
 const TOOLTIP_STYLE = {
   contentStyle: {
-    background: "#18181F",
+    background: "#16161F",
     border: "1px solid rgba(255,255,255,0.08)",
-    borderRadius: "8px",
+    borderRadius: "10px",
     fontSize: "12px",
     color: "#EDEDF0",
+    boxShadow: "0 8px 32px rgba(0,0,0,0.4)",
   },
   labelStyle: { color: "#94949F" },
 };

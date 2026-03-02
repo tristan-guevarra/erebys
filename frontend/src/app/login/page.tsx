@@ -3,7 +3,8 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/lib/auth-context";
-import { Zap } from "lucide-react";
+import Image from "next/image";
+import { Mail, Lock, ArrowRight, Shield, Users } from "lucide-react";
 
 export default function LoginPage() {
   const [email, setEmail]       = useState("");
@@ -34,34 +35,41 @@ export default function LoginPage() {
     <div className="min-h-screen flex items-center justify-center p-4 relative overflow-hidden"
          style={{ background: "var(--bg-primary)" }}>
 
-      {/* background glow blobs */}
+      {/* background effects */}
       <div className="pointer-events-none fixed inset-0 overflow-hidden">
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[400px]
-                        bg-erebys-600/5 rounded-full blur-3xl" />
-        <div className="absolute bottom-1/4 left-1/4 w-[400px] h-[300px]
-                        bg-cyan-500/4 rounded-full blur-3xl" />
+        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[700px] h-[500px]
+                        bg-erebys-600/[0.06] rounded-full blur-[120px]" />
+        <div className="absolute bottom-1/4 left-1/3 w-[400px] h-[300px]
+                        bg-erebys-400/[0.04] rounded-full blur-[100px]" />
+        <div className="absolute top-1/4 right-1/4 w-[300px] h-[300px]
+                        bg-cyan-500/[0.03] rounded-full blur-[80px]" />
       </div>
 
-      <div className="relative w-full max-w-[400px] animate-fade-in">
+      <div className="relative w-full max-w-[420px] animate-fade-in">
         {/* logo */}
-        <div className="text-center mb-8">
-          <div className="inline-flex items-center gap-3 mb-4">
-            <div className="w-10 h-10 rounded-xl bg-erebys-600 flex items-center justify-center shadow-lg shadow-erebys-600/25">
-              <Zap className="w-5 h-5 text-white" />
-            </div>
-            <h1 className="font-display text-2xl font-bold tracking-tight text-[var(--text-primary)]">
-              Erebys
-            </h1>
-          </div>
+        <div className="flex flex-col items-center mb-10">
+          <Image
+            src="/logo.png"
+            alt="Erebys"
+            width={400}
+            height={120}
+            className="h-[90px] w-auto mb-4"
+            priority
+          />
           <p className="text-sm text-[var(--text-muted)]">
             Intelligence Suite for Sports Academies
           </p>
         </div>
 
         {/* card */}
-        <div className="card-glass rounded-2xl p-7 animate-slide-up">
-          <h2 className="font-display text-lg font-semibold mb-5 text-[var(--text-primary)]">
-            Sign in
+        <div className="rounded-2xl p-8 animate-slide-up"
+             style={{
+               background: "linear-gradient(135deg, rgba(22,22,31,0.9), rgba(22,22,31,0.95))",
+               border: "1px solid rgba(255,255,255,0.06)",
+               boxShadow: "0 24px 80px rgba(0,0,0,0.4), 0 0 60px rgba(132,98,194,0.04)",
+             }}>
+          <h2 className="font-display text-lg font-semibold mb-6 text-[var(--text-primary)]">
+            Sign in to your account
           </h2>
 
           <form onSubmit={handleSubmit} className="space-y-4">
@@ -69,28 +77,34 @@ export default function LoginPage() {
               <label className="block text-xs font-medium text-[var(--text-muted)] uppercase tracking-wider mb-1.5">
                 Email
               </label>
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="input-field"
-                placeholder="you@example.com"
-                required
-              />
+              <div className="relative">
+                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--text-muted)]" />
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="input-field pl-10"
+                  placeholder="you@example.com"
+                  required
+                />
+              </div>
             </div>
 
             <div>
               <label className="block text-xs font-medium text-[var(--text-muted)] uppercase tracking-wider mb-1.5">
                 Password
               </label>
-              <input
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="input-field"
-                placeholder="••••••••"
-                required
-              />
+              <div className="relative">
+                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--text-muted)]" />
+                <input
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="input-field pl-10"
+                  placeholder="••••••••"
+                  required
+                />
+              </div>
             </div>
 
             {error && (
@@ -108,21 +122,39 @@ export default function LoginPage() {
               {loading ? (
                 <>
                   <div className="w-3.5 h-3.5 rounded-full border-2 border-white/30 border-t-white animate-spin" />
-                  Signing in…
+                  Signing in...
                 </>
               ) : (
-                "Sign in"
+                <>
+                  Sign in
+                  <ArrowRight className="w-4 h-4" />
+                </>
               )}
             </button>
           </form>
 
-          <div className="mt-5 pt-4 border-t border-[var(--border-subtle)]">
-            <p className="text-xs text-[var(--text-muted)] text-center">
-              Demo:&nbsp;
-              <span className="font-mono text-[var(--text-secondary)]">admin@erebys.io</span>
-              &nbsp;/&nbsp;
-              <span className="font-mono text-[var(--text-secondary)]">admin123</span>
-            </p>
+          {/* demo shortcuts */}
+          <div className="mt-6 pt-5 border-t border-[var(--border-subtle)]">
+            <p className="text-[10px] text-[var(--text-muted)] uppercase tracking-widest text-center mb-3">Quick demo</p>
+            <div className="grid grid-cols-2 gap-2">
+              {[
+                { role: "admin", label: "Admin", icon: Shield, email: "admin@erebys.io", pass: "admin123" },
+                { role: "owner", label: "Owner", icon: Users, email: "owner@elite-soccer.com", pass: "password123" },
+              ].map((demo) => (
+                <button
+                  key={demo.role}
+                  onClick={() => { setEmail(demo.email); setPassword(demo.pass); }}
+                  disabled={loading}
+                  className="flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl
+                             bg-white/[0.03] border border-[var(--border-subtle)]
+                             hover:border-[var(--border-active)] hover:bg-white/[0.05]
+                             text-xs text-[var(--text-secondary)] transition-all disabled:opacity-50"
+                >
+                  <demo.icon className="w-3.5 h-3.5 text-erebys-400" />
+                  {demo.label}
+                </button>
+              ))}
+            </div>
           </div>
         </div>
       </div>

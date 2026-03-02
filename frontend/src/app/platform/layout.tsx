@@ -3,9 +3,10 @@
 import { useEffect, useState, useRef } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import { useAuth } from "@/lib/auth-context";
 import {
-  LayoutDashboard, Building2, TrendingUp, Users, Activity, Settings, LogOut, Zap, ChevronDown,
+  LayoutDashboard, Building2, TrendingUp, Users, Activity, Settings, LogOut, ChevronDown,
 } from "lucide-react";
 
 const NAV_ITEMS = [
@@ -59,15 +60,13 @@ export default function PlatformLayout({
   return (
     <div className="min-h-screen bg-[var(--bg-primary)]">
       {/* fixed top header */}
-      <header className="fixed top-0 inset-x-0 z-40 h-14 border-b border-[var(--border-subtle)] bg-[var(--bg-primary)]/95 backdrop-blur-sm">
+      <header className="fixed top-0 inset-x-0 z-40 h-14 border-b border-[var(--border-subtle)]"
+              style={{ background: "rgba(11,11,17,0.92)", backdropFilter: "blur(12px)" }}>
         <div className="flex items-center h-full px-4 gap-4 max-w-[1600px] mx-auto">
           {/* logo */}
-          <Link href="/platform" className="flex items-center gap-2 shrink-0">
-            <div className="w-7 h-7 rounded-lg flex items-center justify-center"
-                 style={{ background: "var(--accent-cyan)" }}>
-              <Zap className="w-3.5 h-3.5 text-white" />
-            </div>
-            <span className="font-display font-bold text-[15px] tracking-tight"
+          <Link href="/platform" className="flex items-center gap-2.5 shrink-0">
+            <Image src="/logo-icon.png" alt="Erebys" width={32} height={32} className="h-7 w-7 object-contain" />
+            <span className="font-display font-bold text-[15px] tracking-tight hidden sm:block"
                   style={{ color: "var(--accent-cyan)" }}>
               Platform
             </span>
@@ -82,7 +81,7 @@ export default function PlatformLayout({
           {/* vertical divider */}
           <div className="h-5 w-px bg-[var(--border-subtle)] shrink-0" />
 
-          {/* nav items — horizontal scroll on small screens */}
+          {/* nav items */}
           <nav className="flex items-center gap-0.5 flex-1 overflow-x-auto scrollbar-none">
             {NAV_ITEMS.map((item) => {
               const active = isActive(item.href);
@@ -112,8 +111,8 @@ export default function PlatformLayout({
                 className="flex items-center gap-2 pl-2 pr-3 py-1.5 rounded-lg
                            hover:bg-white/[0.05] transition-colors"
               >
-                <div className="w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-bold text-white"
-                     style={{ background: "rgba(6,182,212,0.30)", border: "1px solid rgba(6,182,212,0.30)" }}>
+                <div className="w-7 h-7 rounded-lg flex items-center justify-center text-[10px] font-bold text-white"
+                     style={{ background: "rgba(6,182,212,0.25)", border: "1px solid rgba(6,182,212,0.25)" }}>
                   {user.full_name.split(" ").map((n: string) => n[0]).join("").slice(0, 2)}
                 </div>
                 <span className="text-sm text-[var(--text-secondary)] max-w-[120px] truncate hidden sm:block">
@@ -147,7 +146,7 @@ export default function PlatformLayout({
         </div>
       </header>
 
-      {/* page content — offset for fixed header */}
+      {/* page content */}
       <main className="pt-14">
         <div className="max-w-[1400px] mx-auto px-4 lg:px-6 py-6">
           {children}
